@@ -1,0 +1,15 @@
+{
+  "version": "1.6.4",
+  "filesSha256": {
+    "plugins/opus/THIRD_PARTY_LICENSES.txt": "13c9caedaa2e29c965b37f6e6a39940de46941964f64b990c06df778c0f2496a",
+    "plugins/opus/frontend.js": "a733d75de75fc42f1f3196ad4429d268d761911c882561eb1fe8906ee83e2124",
+    "plugins/opus/frontend_server.js": "3b7e55d9132adfbcdc017f3eb16f0f6c11227383cecc1691b82902fba19108f8",
+    "plugins/opus/opus-decoder.min.js": "a7e4a4533a1be32752ec4908e29b9d704cd0c3f5b6011374e546704b4c82660e",
+    "plugins/opus/opus-worklet.js": "9dd7e292442baf3e0f088686b36c0ba9e7d4a7a8ea9d6ee3b5d6b44b813f746d",
+    "plugins/opus.js": "d72637ae2205991e4a9dbb2d315ca8b342aa4acac6947e15ca0ab99baa9b6aa6"
+  },
+  "upstreamFixtureCommit": "447a4d618647ff4ddccdea241dffd301d3e384d4",
+  "runtimeMatchesRelease": true,
+  "testsPassed": 69,
+  "liveBrowserVerified": false
+}

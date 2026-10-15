@@ -1,0 +1,10 @@
+{
+  "name": "fm-dx-opus-plugin",
+  "version": "1.6.4",
+  "private": true,
+  "description": "Adaptive Opus audio streaming plugin for FM-DX Webserver",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:endurance": "node --expose-gc tests/endurance.js"
+  }
+}

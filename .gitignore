@@ -1,0 +1,8 @@
+node_modules/
+.test-upstream/
+.env
+.env.*
+*.log
+coverage/
+.DS_Store
+/web/
