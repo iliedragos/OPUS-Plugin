@@ -85,17 +85,15 @@ audio badge shows the active playback path.
 
 ## Bitrate
 
-Stop the server, open `config.json`, and add `"opusBitrate": "192k"` inside its
-existing `audio` object. Keep the other audio settings and use valid JSON commas.
-For example, the relevant part of the configuration is:
+Stop the server, open `config.json`, and add this setting inside the existing
+`audio` object:
 
 ```json
-{
-  "audio": {
-    "opusBitrate": "192k"
-  }
-}
+"opusBitrate": "192k"
 ```
+
+Keep the other audio settings. Add a comma between this setting and adjacent
+properties as required by JSON.
 
 If the server uses `--config`, edit that configuration file instead. Restart the
 server to apply the setting, then check the bitrate in the startup log.
