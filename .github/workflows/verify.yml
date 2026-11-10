@@ -134,8 +134,6 @@ jobs:
     runs-on: ubuntu-24.04
     container: debian:13
     timeout-minutes: 15
-    env:
-      FM_DX_WEBSERVER_DIR: ${{ github.workspace }}/.test-upstream
     steps:
       - name: Install container prerequisites and FFmpeg with libopus
         run: |
@@ -157,7 +155,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          cd "$GITHUB_WORKSPACE"
+          export FM_DX_WEBSERVER_DIR="$PWD/.test-upstream"
+          git config --global --add safe.directory "$PWD"
+          git config --global --add safe.directory "$FM_DX_WEBSERVER_DIR"
+          test "$(git rev-parse --show-toplevel)" = "$PWD"
+          test "$(git -C "$FM_DX_WEBSERVER_DIR" rev-parse HEAD)" = 447a4d618647ff4ddccdea241dffd301d3e384d4
           mkdir -p test-results
+          git rev-parse HEAD > test-results/debian-source-commit.txt
+          find plugins -type f -print0 | sort -z | xargs -0 sha256sum > test-results/debian-runtime.sha256
           node --version | tee test-results/debian-environment.txt
           ffmpeg -version | tee -a test-results/debian-environment.txt
           dpkg-query -W ffmpeg libopus0 | tee -a test-results/debian-environment.txt
@@ -167,7 +173,8 @@ jobs:
             npm test 2>&1 | tee "test-results/debian-regression-$attempt.log"
             npm run test:endurance 2>&1 | tee "test-results/debian-endurance-$attempt.log"
           done
-          git diff --exit-code -- plugins VERIFICATION.json
+          sha256sum --check test-results/debian-runtime.sha256
+          git -C "$GITHUB_WORKSPACE" diff --exit-code -- plugins VERIFICATION.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
