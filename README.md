@@ -151,3 +151,7 @@ watchdog recovery, client cleanup, asset publication, decoder paths and clock
 correction. The endurance test exercises repeated connections and long-running
 buffer control with simulated time; it does not replace listening tests in a
 real browser.
+
+GitHub Actions runs both suites three times on pushes and pull requests, and can
+also be started manually. See [CI verification](docs/CI.md) for the pinned test
+environment, reproduction commands, evidence and live-browser limitations.
