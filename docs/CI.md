@@ -47,6 +47,10 @@ SH
 Check that the encoder listing contains `libopus`. The complete preflight,
 including release SHA-256 validation, is in the workflow.
 
+The preflight requires the release fingerprint paths to match every file under
+`plugins/` exactly. An added unlisted file or a missing runtime file fails before
+the hash checks; a newly generated post-test manifest cannot certify such a file.
+
 This fixes the fixture, Node version and action code, but is not a bit-for-bit
 container image: GitHub updates the Ubuntu runner and Ubuntu package revisions
 can change. Each job records Node/npm, FFmpeg/build details, FFmpeg/libopus package
