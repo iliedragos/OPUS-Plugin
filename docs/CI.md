@@ -13,6 +13,7 @@ Bash runs with `-e -o pipefail`, so a failure stops that job even when piped to
 | Input | Configuration |
 | --- | --- |
 | Runner | `ubuntu-24.04` |
+| Compatibility job | `debian:13` container on Ubuntu 24.04; Debian FFmpeg/libopus packages |
 | Node.js | `24.22.1` |
 | FFmpeg | Ubuntu `ffmpeg` package; preflight requires the `libopus` encoder |
 | Upstream fixture | `NoobishSVK/fm-dx-webserver` at `447a4d618647ff4ddccdea241dffd301d3e384d4` |
@@ -69,9 +70,10 @@ of those files; inspect the Actions step logs in that case.
 Before testing, the runtime hashes must match the historical release record in
 `VERIFICATION.json`. After testing, the workflow checks the runtime manifest and
 rejects tracked changes to `plugins/` or `VERIFICATION.json`. That record is not
-rewritten by CI: `testsPassed: 69` and `liveBrowserVerified: false` describe the
-original verification, not a newly generated CI result. A future intentional
-runtime release must update its verification fingerprints through review.
+rewritten by CI. For the intentional 1.6.5 release, `testsPassed: 76` describes
+automated verification; `liveBrowserVerified: false` still distinguishes it from
+real browser playback. Future runtime releases must update their fingerprints
+through review.
 
 The token has only `contents: read`, checkout credentials are not persisted, and
 the workflow uses `pull_request`, not `pull_request_target`. No secrets are
@@ -82,7 +84,7 @@ cancel the corresponding pull request run.
 
 | Check | What actually executes | What it does not establish |
 | --- | --- | --- |
-| Regression | 69 existing cases covering configuration, parsing, buffering, recovery, connection lifecycle and frontend behavior | Complete upstream server or browser integration |
+| Regression | 76 cases: the 69 original cases plus six short mono/stereo PCM conservation cases and one live-before-EOF case | Complete upstream server or browser integration |
 | FFmpeg integration | Real child processes encode PCM with `libopus`; shipped WASM decodes the resulting packets | Native browser WebCodecs behavior or audible output quality |
 | Frontend/worklet | JavaScript VM harness with simulated DOM, Web Audio, timers and worklet rendering | Browser scheduling, audio hardware clocks, autoplay policies, secure contexts or background-tab throttling |
 | Endurance | One simulated scheduler hour, 2,000 reset/reconnection cycles, worklet ring checks and 100 server pressure/reset cycles after warmup | An hour of real-time playback, real network reconnects or a complete process memory/CPU profile |

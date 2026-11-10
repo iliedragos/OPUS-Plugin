@@ -15,7 +15,7 @@
 (function () {
     'use strict';
 
-    const PLUGIN_VERSION = '1.6.4';
+    const PLUGIN_VERSION = '1.6.5';
     const PATCH_STATE_KEY = '__fmDxOpusFrontendPatch';
     const OPUS_MIME = 'audio/opus-packets';
     const OPUS_INITIAL_BUFFER = 1 / 3;
