@@ -128,3 +128,50 @@ jobs:
           path: test-results/
           if-no-files-found: warn
           retention-days: 14
+
+  debian-compatibility:
+    name: FFmpeg Debian 13 (Node 24)
+    runs-on: ubuntu-24.04
+    container: debian:13
+    timeout-minutes: 15
+    env:
+      FM_DX_WEBSERVER_DIR: ${{ github.workspace }}/.test-upstream
+    steps:
+      - name: Install container prerequisites and FFmpeg with libopus
+        run: |
+          apt-get update
+          apt-get install --no-install-recommends -y ca-certificates git ffmpeg
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: NoobishSVK/fm-dx-webserver
+          ref: 447a4d618647ff4ddccdea241dffd301d3e384d4
+          path: .test-upstream
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+      - name: Record environment and repeat both suites
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p test-results
+          node --version | tee test-results/debian-environment.txt
+          ffmpeg -version | tee -a test-results/debian-environment.txt
+          dpkg-query -W ffmpeg libopus0 | tee -a test-results/debian-environment.txt
+          ffmpeg -hide_banner -encoders > test-results/debian-encoders.txt 2>&1
+          grep -Eq '[[:space:]]libopus[[:space:]]' test-results/debian-encoders.txt
+          for attempt in 1 2 3; do
+            npm test 2>&1 | tee "test-results/debian-regression-$attempt.log"
+            npm run test:endurance 2>&1 | tee "test-results/debian-endurance-$attempt.log"
+          done
+          git diff --exit-code -- plugins VERIFICATION.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: verification-debian-compatibility
+          path: test-results/
+          if-no-files-found: warn
+          retention-days: 14

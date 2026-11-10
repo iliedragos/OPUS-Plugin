@@ -1,0 +1,12 @@
+{
+  "version": "1.6.5",
+  "archive_sha256": "feafc5d6e0802eba46d6aff2e4e853b2bc8266af1b3bf1a4dae2a2eb58813605",
+  "filesSha256": {
+    "plugins/opus/THIRD_PARTY_LICENSES.txt": "13c9caedaa2e29c965b37f6e6a39940de46941964f64b990c06df778c0f2496a",
+    "plugins/opus/frontend.js": "131eb9d5f09f873e77c578a8cc0db041e70b802faeabbcd29238ecf7b62f8c44",
+    "plugins/opus/frontend_server.js": "907830732ae6bb70ea285cc23e24d5e1b907a6e5f0a2c74280c8f446e1238e6f",
+    "plugins/opus/opus-decoder.min.js": "a7e4a4533a1be32752ec4908e29b9d704cd0c3f5b6011374e546704b4c82660e",
+    "plugins/opus/opus-worklet.js": "9dd7e292442baf3e0f088686b36c0ba9e7d4a7a8ea9d6ee3b5d6b44b813f746d",
+    "plugins/opus.js": "3e8d8708b8e7788333b823957e64b6610322ed628076cc56f120b5193b04c634"
+  }
+}

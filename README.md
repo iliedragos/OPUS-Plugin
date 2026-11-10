@@ -2,7 +2,13 @@
 
 Opus audio streaming for [FM-DX Webserver](https://github.com/NoobishSVK/fm-dx-webserver).
 
-Original developer: **mudkip**. Version: **1.6.4**.
+Original developer: **mudkip**. Version: **1.6.5**.
+
+Version 1.6.5 preserves the initial raw PCM samples consumed by FFmpeg input
+analysis. This fixes missing startup audio and the FFmpeg 7.1.5 integration
+failures without changing the buffer controller or decoder. Download the
+runtime-only [OPUS-Plugin-1.6.5.zip](packages/OPUS-Plugin-1.6.5.zip) and follow
+the installation steps below. See [verification and rollout](docs/FFMPEG_1.6.5.md).
 
 ## How it works
 

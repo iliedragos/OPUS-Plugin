@@ -127,7 +127,9 @@ function buildFfmpegArguments(server, opusConfig) {
 
     return [
         '-hide_banner',
-        '-fflags', '+nobuffer+flush_packets', '-flags', 'low_delay',
+        // Input nobuffer discards PCM consumed during FFmpeg's initial analysis.
+        // Keep those frames; explicit raw-PCM format and bounded probing stay in use.
+        '-fflags', '+flush_packets', '-flags', 'low_delay',
         '-rtbufsize', '32', '-probesize', '32',
         '-f', 's16le',
         '-ar', String(inRate),
